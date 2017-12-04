@@ -1,0 +1,19 @@
+#Eclipse project files
+.classpath
+.project
+.settings
+
+
+*.iml
+.idea
+.gradle
+
+#binary directories
+bin
+target
+lib
+build
+out
+
+#other
+test-output

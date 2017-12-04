@@ -1,0 +1,23 @@
+CREATE USER 'bookslibraryrest'@'localhost' IDENTIFIED BY 'bookslibraryrest';
+GRANT ALL PRIVILEGES ON bookslib. * TO 'bookslibraryrest'@'localhost';
+FLUSH PRIVILEGES;
+
+CREATE DATABASE `bookslib` /*!40100 DEFAULT CHARACTER SET utf8 */;
+
+CREATE TABLE `author` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `fname` varchar(45) NOT NULL,
+  `lname` varchar(45) NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `UK_go0gdk91kpgq94qg6ckgejdi4` (`fname`),
+  UNIQUE KEY `UK_eifu3kuhs22a8o3j1a5mvm43o` (`lname`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+
+CREATE TABLE `genre` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `name` varchar(45) NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `UK_ctffrbu4484ft8dlsa5vmqdka` (`name`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+
+
