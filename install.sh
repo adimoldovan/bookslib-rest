@@ -10,3 +10,5 @@ cd target
 echo -e "\nUsing path $serverpath"
 echo "Copying war file to $serverpath"
 rsync -zarv --include="*.war" --exclude="*" "." "$serverpath"
+chown tomcat8:tomcat8 $serverpath/*.war
+service tomcat8 restart
