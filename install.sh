@@ -16,5 +16,5 @@ rm -rf $finalpath
 mkdir $finalpath
 
 echo "Copying war file to $finalpath"
-rsync -zarv --include="*/" --include="*.war" --exclude="*" "$basepath" "$serverpath"
+rsync -zarv --include="*.war" --exclude="*" "." "$serverpath"
 cd $finalpath
