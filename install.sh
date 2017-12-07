@@ -9,7 +9,7 @@ mvn clean package
 cd target
 echo -e "\n>> Using path $serverpath"
 echo -e ">> Stopping tomcat8"
-service tomcat8 restart
+service tomcat8 stop
 echo ">> Copying war file to $serverpath"
 rsync -zarv --include="*.war" --exclude="*" "." "$serverpath"
 chown tomcat8:tomcat8 $serverpath/*.war
