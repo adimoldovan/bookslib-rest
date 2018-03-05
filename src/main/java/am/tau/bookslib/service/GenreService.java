@@ -1,54 +1,72 @@
 package am.tau.bookslib.service;
 
-import am.tau.bookslib.db.HibernateUtil;
+import am.tau.bookslib.db.MySQLClient;
 import am.tau.bookslib.model.Genre;
-import org.hibernate.Session;
 import org.springframework.stereotype.Service;
 
-import javax.persistence.criteria.CriteriaQuery;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
 public class GenreService {
-    public Iterable<Genre> getAll() {
-        List<Genre> genres;
-        try (Session session = HibernateUtil.getSessionFactory().openSession()) {
-            CriteriaQuery<Genre> cq = session.getCriteriaBuilder().createQuery(Genre.class);
-            cq.from(Genre.class);
-            genres = session.createQuery(cq).getResultList();
+    MySQLClient mySQLClient = new MySQLClient();
+
+    public Iterable<Genre> getAll() throws SQLException {
+        List<Genre> genres = new ArrayList<>();
+
+        PreparedStatement ps = mySQLClient.getPreparedStatement("SELECT * FROM genre");
+        ResultSet rs = ps.executeQuery();
+
+        while (rs.next()) {
+            Genre genre = new Genre();
+            genre.setId(rs.getInt("id"));
+            genre.setName(rs.getString("name"));
+            genres.add(genre);
         }
+
+        mySQLClient.closeAllAndDisconnect();
         return genres;
     }
 
-    public Genre getById(int id) {
-        Genre genre;
-        try (Session session = HibernateUtil.getSessionFactory().openSession()) {
-            genre = session.get(Genre.class, id);
+    public Genre getById(int id) throws SQLException {
+        Genre genre = null;
+
+        PreparedStatement ps = mySQLClient.getPreparedStatement("SELECT * FROM genre WHERE id = ?");
+        ps.setInt(1, id);
+        ResultSet rs = ps.executeQuery();
+
+        while (rs.next()) {
+            genre = new Genre();
+            genre.setId(rs.getInt("id"));
+            genre.setName(rs.getString("name"));
         }
+
+        mySQLClient.closeAllAndDisconnect();
         return genre;
     }
 
-    public void add(Genre genre) {
-        try (Session session = HibernateUtil.getSessionFactory().openSession()) {
-            session.beginTransaction();
-            session.save(genre);
-            session.getTransaction().commit();
-        }
+    public void add(Genre genre) throws SQLException {
+        PreparedStatement ps = mySQLClient.getPreparedStatement("INSERT INTO genre (name) VALUES (?)");
+        ps.setString(1, genre.getName());
+        ps.execute();
+        mySQLClient.closeAllAndDisconnect();
     }
 
-    public void update(Genre genre) {
-        try (Session session = HibernateUtil.getSessionFactory().openSession()) {
-            session.beginTransaction();
-            session.update(genre);
-            session.getTransaction().commit();
-        }
+    public void update(Genre genre) throws SQLException {
+        PreparedStatement ps = mySQLClient.getPreparedStatement("UPDATE genre SET name = ? WHERE id = ?");
+        ps.setString(1, genre.getName());
+        ps.setInt(2, genre.getId());
+        ps.execute();
+        mySQLClient.closeAllAndDisconnect();
     }
 
-    public void delete(Integer id) {
-        try (Session session = HibernateUtil.getSessionFactory().openSession()) {
-            session.beginTransaction();
-            session.delete(session.get(Genre.class, id));
-            session.getTransaction().commit();
-        }
+    public void delete(Integer id) throws SQLException {
+        PreparedStatement ps = mySQLClient.getPreparedStatement("DELETE FROM genre WHERE id = ?");
+        ps.setInt(1, id);
+        ps.execute();
+        mySQLClient.closeAllAndDisconnect();
     }
 }
