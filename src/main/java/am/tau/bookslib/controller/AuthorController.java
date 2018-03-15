@@ -86,10 +86,10 @@ public class AuthorController {
         }
     }
 
-    private Author getAuthorIfItExists(int categoryId) throws NotFoundException, SQLException {
-        Author author = authorService.getById(categoryId);
+    private Author getAuthorIfItExists(int id) throws NotFoundException, SQLException {
+        Author author = authorService.getById(id);
         if (author == null) {
-            throw new NotFoundException("Author was not found");
+            throw new NotFoundException(String.format("Author with id %s was not found", id));
         }
 
         return author;
