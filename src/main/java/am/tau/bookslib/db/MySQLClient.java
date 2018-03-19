@@ -48,6 +48,11 @@ public class MySQLClient {
         String DB_HOST = "jdbc:mysql://localhost:3306/bookslib?useSSL=false";
         String DB_USER = "bookslibraryrest";
         String DB_PASSWORD = "bookslibraryrest";
+        try {
+            Class.forName("com.mysql.jdbc.Driver");
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }
         conn = DriverManager.getConnection(DB_HOST, DB_USER, DB_PASSWORD);
     }
 
