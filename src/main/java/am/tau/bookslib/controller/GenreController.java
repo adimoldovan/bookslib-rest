@@ -68,6 +68,10 @@ public class GenreController {
     }
 
     private void validateGenre(Genre genre) throws InvalidInputException {
+        if (genre.getName() == null) {
+            throw new InvalidInputException("Missing genre name");
+        }
+
         if (genre.getName().length() < 1) {
             throw new InvalidInputException("The genre name should have at least 1 character");
         }

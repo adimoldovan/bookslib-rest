@@ -71,6 +71,14 @@ public class BookController {
     }
 
     private void validateBook(Book book) throws InvalidInputException {
+        if (book.getName() == null) {
+            throw new InvalidInputException("Missing book name");
+        }
+
+        if (book.getPublicationDate() == null) {
+            throw new InvalidInputException("Missing publication date");
+        }
+
         if (book.getName().length() < 1) {
             throw new InvalidInputException("The book name should have at least 1 character");
         }
@@ -79,9 +87,16 @@ public class BookController {
             throw new InvalidInputException("The book name MAX length is 45");
         }
 
-        if (book.getPublicationDate() == null)
-        {
+        if (book.getPublicationDate() == null) {
             throw new InvalidInputException("Missing publication date");
+        }
+
+        if (book.getAuthor() == null) {
+            throw new InvalidInputException("Missing author");
+        }
+
+        if (book.getGenre() == null) {
+            throw new InvalidInputException("Missing genre");
         }
     }
 

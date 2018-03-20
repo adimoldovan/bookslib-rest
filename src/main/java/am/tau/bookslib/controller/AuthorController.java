@@ -69,6 +69,14 @@ public class AuthorController {
     }
 
     private void validateAuthor(Author author) throws InvalidInputException {
+        if (author.getFirstName() == null) {
+            throw new InvalidInputException("Missing first name");
+        }
+
+        if (author.getLastName() == null) {
+            throw new InvalidInputException("Missing last name");
+        }
+
         if (author.getFirstName().length() < 1) {
             throw new InvalidInputException("The author first name should have at least 1 character");
         }
