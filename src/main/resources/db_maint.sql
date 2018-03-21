@@ -43,4 +43,14 @@ CREATE TABLE `book` (
 
 INSERT INTO `book` (name, publication_date, author_id, genre_id) VALUES ('A Brief History Of Time', '2009-11-10', (SELECT id FROM `author` ORDER BY id ASC), (SELECT id FROM `genre` ORDER BY id ASC));
 
+DROP TABLE IF EXISTS `user;
 
+CREATE TABLE `user` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `username` varchar(45) NOT NULL,
+  `password` varchar(300) NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `username_UNIQUE` (`username`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+
+INSERT INTO `user` (username, password) VALUES ('user1', '$10$C8BX8f1cckgmeA3TPwR1X.IAYHs7rxxrOmrivOoeP6erJcmp7GWkK');

@@ -1,14 +1,14 @@
 package am.tau.bookslib.model;
 
-public class User {
+public class UserAccount {
     private int id;
     private String username;
     private String password;
 
-    public User() {
+    public UserAccount() {
     }
 
-    public User(String username, String password) {
+    public UserAccount(String username, String password) {
         this.id = id;
         this.username = username;
         this.password = password;

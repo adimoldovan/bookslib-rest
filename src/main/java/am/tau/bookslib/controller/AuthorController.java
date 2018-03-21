@@ -17,7 +17,6 @@ import java.sql.SQLException;
 @RequestMapping("/author")
 @Api(tags = "Author")
 public class AuthorController {
-
     private AuthorService authorService;
 
     @Autowired

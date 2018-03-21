@@ -4,10 +4,11 @@ import io.swagger.annotations.Api;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
+import springfox.documentation.annotations.ApiIgnore;
 
 @RestController
 @RequestMapping("/")
-@Api(tags = "_Index")
+@ApiIgnore
 public class IndexController {
     @RequestMapping(method = RequestMethod.GET)
     String index() {
