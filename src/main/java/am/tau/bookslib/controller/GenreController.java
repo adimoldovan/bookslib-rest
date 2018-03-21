@@ -7,6 +7,7 @@ import am.tau.bookslib.model.SuccessResponse;
 import am.tau.bookslib.service.GenreService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.Authorization;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -17,7 +18,6 @@ import java.sql.SQLException;
 @RequestMapping("/genre")
 @Api(tags = "Genre")
 public class GenreController {
-
     private GenreService genreService;
 
     @Autowired
@@ -41,7 +41,7 @@ public class GenreController {
         return getGenreIfItExists(id);
     }
 
-    @ApiOperation(value = "Create a new genre")
+    @ApiOperation(value = "Create a new genre", authorizations = {@Authorization(value = "Bearer")})
     @RequestMapping(value = "/add", method = RequestMethod.POST, produces = "application/json")
     public ResponseEntity save(@RequestBody Genre genre) throws InvalidInputException, SQLException {
         validateGenre(genre);
@@ -49,7 +49,7 @@ public class GenreController {
         return new SuccessResponse().getResponse();
     }
 
-    @ApiOperation(value = "Update a genre")
+    @ApiOperation(value = "Update a genre", authorizations = {@Authorization(value = "Bearer")})
     @RequestMapping(value = "/update/{id}", method = RequestMethod.PUT, produces = "application/json")
     public ResponseEntity update(@PathVariable Integer id, @RequestBody Genre genre) throws InvalidInputException, NotFoundException, SQLException {
         Genre storedGenre = getGenreIfItExists(id);
@@ -59,7 +59,7 @@ public class GenreController {
         return new SuccessResponse().getResponse();
     }
 
-    @ApiOperation(value = "Delete a genre")
+    @ApiOperation(value = "Delete a genre", authorizations = {@Authorization(value = "Bearer")})
     @RequestMapping(value = "/delete/{id}", method = RequestMethod.DELETE, produces = "application/json")
     public ResponseEntity delete(@PathVariable Integer id) throws NotFoundException, SQLException {
         getGenreIfItExists(id);

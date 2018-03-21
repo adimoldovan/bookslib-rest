@@ -5,8 +5,7 @@ import am.tau.bookslib.exception.NotFoundException;
 import am.tau.bookslib.model.Author;
 import am.tau.bookslib.model.SuccessResponse;
 import am.tau.bookslib.service.AuthorService;
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -40,7 +39,7 @@ public class AuthorController {
         return getAuthorIfItExists(id);
     }
 
-    @ApiOperation(value = "Create a new author")
+    @ApiOperation(value = "Create a new author", authorizations = {@Authorization(value = "Bearer")})
     @RequestMapping(value = "/add", method = RequestMethod.POST, produces = "application/json")
     public ResponseEntity save(@RequestBody Author author) throws InvalidInputException, SQLException {
         validateAuthor(author);
@@ -48,7 +47,7 @@ public class AuthorController {
         return new SuccessResponse().getResponse();
     }
 
-    @ApiOperation(value = "Update an author")
+    @ApiOperation(value = "Update an author", authorizations = {@Authorization(value = "Bearer")})
     @RequestMapping(value = "/update/{id}", method = RequestMethod.PUT, produces = "application/json")
     public ResponseEntity update(@PathVariable Integer id, @RequestBody Author author) throws InvalidInputException, NotFoundException, SQLException {
         Author storedAuthor = getAuthorIfItExists(id);
@@ -59,7 +58,7 @@ public class AuthorController {
         return new SuccessResponse().getResponse();
     }
 
-    @ApiOperation(value = "Delete an author")
+    @ApiOperation(value = "Delete an author", authorizations = {@Authorization(value = "Bearer")})
     @RequestMapping(value = "/delete/{id}", method = RequestMethod.DELETE, produces = "application/json")
     public ResponseEntity delete(@PathVariable Integer id) throws NotFoundException, InvalidInputException, SQLException {
         getAuthorIfItExists(id);

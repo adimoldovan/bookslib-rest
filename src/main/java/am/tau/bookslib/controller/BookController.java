@@ -7,6 +7,7 @@ import am.tau.bookslib.model.SuccessResponse;
 import am.tau.bookslib.service.BookService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.Authorization;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -17,7 +18,6 @@ import java.sql.SQLException;
 @RequestMapping("/book")
 @Api(tags = "Book")
 public class BookController {
-
     private BookService bookService;
 
     @Autowired
@@ -41,7 +41,7 @@ public class BookController {
         return getBookIfItExists(id);
     }
 
-    @ApiOperation(value = "Create a new book")
+    @ApiOperation(value = "Create a new book", authorizations = {@Authorization(value = "Bearer")})
     @RequestMapping(value = "/add", method = RequestMethod.POST, produces = "application/json")
     public ResponseEntity save(@RequestBody Book book) throws InvalidInputException, SQLException {
         validateBook(book);
@@ -49,7 +49,7 @@ public class BookController {
         return new SuccessResponse().getResponse();
     }
 
-    @ApiOperation(value = "Update a book")
+    @ApiOperation(value = "Update a book", authorizations = {@Authorization(value = "Bearer")})
     @RequestMapping(value = "/update/{id}", method = RequestMethod.PUT, produces = "application/json")
     public ResponseEntity update(@PathVariable Integer id, @RequestBody Book book) throws InvalidInputException, NotFoundException, SQLException {
         Book storedBook = getBookIfItExists(id);
@@ -62,7 +62,7 @@ public class BookController {
         return new SuccessResponse().getResponse();
     }
 
-    @ApiOperation(value = "Delete a book")
+    @ApiOperation(value = "Delete a book", authorizations = {@Authorization(value = "Bearer")})
     @RequestMapping(value = "/delete/{id}", method = RequestMethod.DELETE, produces = "application/json")
     public ResponseEntity delete(@PathVariable Integer id) throws NotFoundException, InvalidInputException, SQLException {
         getBookIfItExists(id);

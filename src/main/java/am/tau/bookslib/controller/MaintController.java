@@ -26,7 +26,7 @@ public class MaintController {
         this.maintService = service;
     }
 
-    @ApiOperation(value = "Drops and recreated the entire DB", produces = "application/json")
+    @ApiOperation(value = "Drops and recreates the entire DB", produces = "application/json")
     @RequestMapping(value = "/full", method = RequestMethod.GET, produces = "application/json")
     public ResponseEntity recreateDB() throws SQLException, IOException {
         maintService.fullMaint();
