@@ -35,7 +35,7 @@ public class WebSecurity extends WebSecurityConfigurerAdapter {
                         "/swagger-ui.html",
                         "/webjars/**").permitAll()
                 .antMatchers("/*/list", "/*/show/*", "/user/add", "/maint/*").permitAll()
-                .antMatchers("/*/add","/*/update/*","/*/delete/*").permitAll()
+//                .antMatchers("/*/add","/*/update/*","/*/delete/*").permitAll()
                 .anyRequest().authenticated()
                 .and()
                 .addFilter(new JWTAuthenticationFilter(authenticationManager()))
