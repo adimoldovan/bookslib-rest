@@ -33,6 +33,27 @@ public class AuthorService {
         return authors;
     }
 
+    public Iterable<Author> getAllByName(String firstName, String lastName) throws SQLException {
+        List<Author> authors = new ArrayList<>();
+
+        PreparedStatement ps = mySQLClient.getPreparedStatement("SELECT * FROM author WHERE fname LIKE ? AND lname LIKE ?");
+        ps.setString(1, firstName);
+        ps.setString(2, lastName);
+        ResultSet rs = ps.executeQuery();
+
+        while (rs.next()) {
+            Author author = new Author();
+            author.setId(rs.getInt("id"));
+            author.setFirstName(rs.getString("fname"));
+            author.setLastName(rs.getString("lname"));
+            authors.add(author);
+        }
+
+        mySQLClient.closeAllAndDisconnect();
+
+        return authors;
+    }
+
     public Author getById(int id) throws SQLException {
         Author author = null;
 

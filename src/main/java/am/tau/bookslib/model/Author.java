@@ -10,9 +10,18 @@ public class Author {
 
     @ApiModelProperty(notes = "Author's first name", required = true, example = "Author first name")
     private String firstName;
-
     @ApiModelProperty(notes = "Author's last name", required = true, example = "Author last name")
     private String lastName;
+
+    @Override
+    public boolean equals(Object obj) {
+        Author newAuthor = (Author) obj;
+        if (this.firstName.equalsIgnoreCase(newAuthor.getFirstName()) && this.lastName.equalsIgnoreCase(newAuthor.getLastName())) {
+            return true;
+        }
+
+        return false;
+    }
 
     public String getLastName() {
         return lastName;

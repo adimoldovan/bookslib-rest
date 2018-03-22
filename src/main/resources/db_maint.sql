@@ -52,5 +52,3 @@ CREATE TABLE `user` (
   PRIMARY KEY (`id`),
   UNIQUE KEY `username_UNIQUE` (`username`)
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
-
-INSERT INTO `user` (username, password) VALUES ('user1', '$10$C8BX8f1cckgmeA3TPwR1X.IAYHs7rxxrOmrivOoeP6erJcmp7GWkK');

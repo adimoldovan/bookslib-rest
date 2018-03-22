@@ -1,8 +1,7 @@
 package am.tau.bookslib.controller;
 
-import am.tau.bookslib.Application;
-import am.tau.bookslib.configuration.SecurityConstants;
 import am.tau.bookslib.model.SuccessResponse;
+import am.tau.bookslib.model.UserAccount;
 import am.tau.bookslib.service.MaintService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -20,16 +19,19 @@ import java.sql.SQLException;
 @Api(tags = "Maintenence")
 public class MaintController {
     private MaintService maintService;
+    private UserController userController;
 
     @Autowired
-    public void setService(MaintService service) {
+    public void setService(MaintService service, UserController userController) {
         this.maintService = service;
+        this.userController = userController;
     }
 
-    @ApiOperation(value = "Drops and recreates the entire DB", produces = "application/json")
+    @ApiOperation(value = "Drops and recreates the entire DB with default data", produces = "application/json")
     @RequestMapping(value = "/full", method = RequestMethod.GET, produces = "application/json")
     public ResponseEntity recreateDB() throws SQLException, IOException {
         maintService.fullMaint();
+        userController.addNewAccount(new UserAccount("defaultuser", "defaultuser"));
         return new SuccessResponse().getResponse();
     }
 }
