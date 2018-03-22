@@ -48,6 +48,23 @@ public class GenreService {
         return genre;
     }
 
+    public Genre getByName(String name) throws SQLException {
+        Genre genre = null;
+
+        PreparedStatement ps = mySQLClient.getPreparedStatement("SELECT * FROM genre WHERE name LIKE ?");
+        ps.setString(1, name);
+        ResultSet rs = ps.executeQuery();
+
+        while (rs.next()) {
+            genre = new Genre();
+            genre.setId(rs.getInt("id"));
+            genre.setName(rs.getString("name"));
+        }
+
+        mySQLClient.closeAllAndDisconnect();
+        return genre;
+    }
+
     public void add(Genre genre) throws SQLException {
         PreparedStatement ps = mySQLClient.getPreparedStatement("INSERT INTO genre (name) VALUES (?)");
         ps.setString(1, genre.getName());

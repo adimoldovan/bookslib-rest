@@ -2,6 +2,7 @@ package am.tau.bookslib.controller;
 
 import am.tau.bookslib.exception.InvalidInputException;
 import am.tau.bookslib.exception.NotFoundException;
+import am.tau.bookslib.exception.ResourceAlreadyExistsException;
 import am.tau.bookslib.model.Genre;
 import am.tau.bookslib.model.SuccessResponse;
 import am.tau.bookslib.service.GenreService;
@@ -67,7 +68,7 @@ public class GenreController {
         return new SuccessResponse().getResponse();
     }
 
-    private void validateGenre(Genre genre) throws InvalidInputException {
+    private void validateGenre(Genre genre) throws InvalidInputException, SQLException {
         if (genre.getName() == null) {
             throw new InvalidInputException("Missing genre name");
         }
@@ -78,6 +79,12 @@ public class GenreController {
 
         if (genre.getName().length() > 45) {
             throw new InvalidInputException("The genre name MAX length is 45");
+        }
+
+        Genre existingGenre = genreService.getByName(genre.getName());
+
+        if (existingGenre != null) {
+            throw new ResourceAlreadyExistsException("Genre already exists");
         }
     }
 
