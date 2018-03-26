@@ -45,7 +45,7 @@ public class MySQLClient {
     }
 
     private void connect() throws SQLException {
-        String DB_HOST = "jdbc:mysql://localhost:3306/bookslib?useSSL=false";
+        String DB_HOST = "jdbc:mysql://localhost:3306/bookslib?useSSL=false&useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC";
         String DB_USER = "bookslibraryrest";
         String DB_PASSWORD = "bookslibraryrest";
         try {
