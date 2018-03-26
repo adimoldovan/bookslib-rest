@@ -10,6 +10,7 @@ import java.sql.SQLException;
 
 public class MySQLClient {
     private static final Logger LOGGER = LoggerFactory.getLogger(MySQLClient.class.getName());
+    public static final String DB_CONN_STRING = "jdbc:mysql://localhost:3306/bookslib?useSSL=false&useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC";
     private Connection conn;
     private PreparedStatement preparedStatement;
 
@@ -45,7 +46,6 @@ public class MySQLClient {
     }
 
     private void connect() throws SQLException {
-        String DB_HOST = "jdbc:mysql://localhost:3306/bookslib?useSSL=false&useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC";
         String DB_USER = "bookslibraryrest";
         String DB_PASSWORD = "bookslibraryrest";
         try {
@@ -53,7 +53,7 @@ public class MySQLClient {
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
         }
-        conn = DriverManager.getConnection(DB_HOST, DB_USER, DB_PASSWORD);
+        conn = DriverManager.getConnection(DB_CONN_STRING, DB_USER, DB_PASSWORD);
     }
 
     public Connection getConnection() throws SQLException {

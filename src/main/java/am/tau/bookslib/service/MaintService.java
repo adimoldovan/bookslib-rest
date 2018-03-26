@@ -19,7 +19,7 @@ public class MaintService {
             sr.setDriver("com.mysql.jdbc.Driver");
             sr.setUsername("bookslibraryrest");
             sr.setPassword("bookslibraryrest");
-            sr.setUrl("jdbc:mysql://localhost:3306/bookslib?useSSL=false");
+            sr.setUrl(MySQLClient.DB_CONN_STRING);
 
             Reader reader = new BufferedReader(new FileReader(file.getAbsoluteFile()));
 
