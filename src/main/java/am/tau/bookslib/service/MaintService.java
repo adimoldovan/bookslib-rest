@@ -10,10 +10,8 @@ import java.sql.SQLException;
 
 @Service
 public class MaintService {
-    MySQLClient mySQLClient = new MySQLClient();
-
     public void fullMaint() throws IOException, SQLException {
-        File file = new ClassPathResource("db_maint.sql").getFile();
+        InputStream is = new ClassPathResource("db_maint.sql").getInputStream();
         try {
             ScriptRunner sr = new ScriptRunner();
             sr.setDriver("com.mysql.jdbc.Driver");
@@ -21,12 +19,11 @@ public class MaintService {
             sr.setPassword("bookslibraryrest");
             sr.setUrl(MySQLClient.DB_CONN_STRING);
 
-            Reader reader = new BufferedReader(new FileReader(file.getAbsoluteFile()));
+            Reader reader = new BufferedReader(new InputStreamReader(is));
 
             sr.runScript(reader);
         } catch (Exception e) {
-            System.err.println("Failed to Execute" + file.getName()
-                    + " The error is " + e.getMessage());
+            System.err.println("Failed to Execute db_maint. The error is " + e.getMessage());
         }
     }
 }

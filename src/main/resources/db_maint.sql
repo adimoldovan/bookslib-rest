@@ -43,7 +43,7 @@ CREATE TABLE `book` (
 
 INSERT INTO `book` (name, publication_date, author_id, genre_id) VALUES ('A Brief History Of Time', '2009-11-10', (SELECT id FROM `author` ORDER BY id ASC), (SELECT id FROM `genre` ORDER BY id ASC));
 
-DROP TABLE IF EXISTS `user;
+DROP TABLE IF EXISTS `user`;
 
 CREATE TABLE `user` (
   `id` int(11) NOT NULL AUTO_INCREMENT,

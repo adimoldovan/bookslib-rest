@@ -1,0 +1,33 @@
+version: '3.7'
+services:
+  bookslib-db:
+   container_name: bookslib-db
+   image: mysql/mysql-server:5.7
+   environment:
+    MYSQL_DATABASE: bookslib
+    MYSQL_USER: bookslibraryrest
+    MYSQL_PASSWORD: bookslibraryrest
+    MYSQL_ROOT_PASSWORD: root
+   ports:
+      - 33061:3306
+   restart: always
+   networks:
+    bookslib-network:
+      aliases:
+        - bookslib-db
+
+  bookslib-api:
+    container_name: bookslib-api
+    image: books-library-rest:1.0.0
+    restart: always
+    ports:
+      - 8999:8080
+    depends_on:
+      - bookslib-db
+    networks:
+      bookslib-network:
+              aliases:
+                - bookslib-api
+
+networks:
+  bookslib-network:

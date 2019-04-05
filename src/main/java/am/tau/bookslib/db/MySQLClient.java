@@ -9,8 +9,8 @@ import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
 public class MySQLClient {
+    public static final String DB_CONN_STRING = "jdbc:mysql://bookslib-db:3306/bookslib?useSSL=false&useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC";
     private static final Logger LOGGER = LoggerFactory.getLogger(MySQLClient.class.getName());
-    public static final String DB_CONN_STRING = "jdbc:mysql://localhost:3306/bookslib?useSSL=false&useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC";
     private Connection conn;
     private PreparedStatement preparedStatement;
 
