@@ -2,6 +2,10 @@ DROP DATABASE IF EXISTS `bookslib`;
 
 CREATE DATABASE `bookslib` /*!40100 DEFAULT CHARACTER SET utf8 */;
 
+CREATE USER 'bookslibraryrest'@'localhost' IDENTIFIED BY 'bookslibraryrest';
+GRANT ALL PRIVILEGES ON bookslib.* TO 'bookslibraryrest'@'localhost';
+FLUSH PRIVILEGES;
+
 USE `bookslib`;
 
 DROP TABLE IF EXISTS `author`;

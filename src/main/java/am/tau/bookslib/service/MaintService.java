@@ -11,7 +11,7 @@ import java.sql.SQLException;
 @Service
 public class MaintService {
     public void fullMaint() throws IOException, SQLException {
-        InputStream is = new ClassPathResource("db_maint.sql").getInputStream();
+        InputStream is = new ClassPathResource("db/db_init.sql").getInputStream();
         try {
             ScriptRunner sr = new ScriptRunner();
             sr.setDriver("com.mysql.jdbc.Driver");

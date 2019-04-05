@@ -11,6 +11,8 @@ services:
    ports:
       - 33061:3306
    restart: always
+   volumes:
+     - ./src/main/resources/db:/docker-entrypoint-initdb.d
    networks:
     bookslib-network:
       aliases:
