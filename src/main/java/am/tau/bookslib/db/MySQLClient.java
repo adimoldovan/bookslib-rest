@@ -50,7 +50,7 @@ public class MySQLClient {
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
         }
-        conn = DriverManager.getConnection(System.getProperty("DB_URL"), System.getProperty("DB_USERNAME"), System.getProperty("DB_PASSWORD"));
+        conn = DriverManager.getConnection(System.getenv("DB_URL"), System.getenv("DB_USERNAME"), System.getenv("DB_PASSWORD"));
     }
 
     public Connection getConnection() throws SQLException {
